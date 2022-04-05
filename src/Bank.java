@@ -1,17 +1,70 @@
+import java.util.Scanner;
+
 public class Bank {
     private Account[] accounts;
     private Transaction[] transactions;
     private long totalCash;
     private double interestRate;
+    private int numOfCustomers;
     private int numOfAccounts;
 
     public static void main(String[] args) {
         Bank program = new Bank();
         program.menu();
+
+        sc.close();
     }
 
     public void menu() {
+        Scanner sc = new Scanner(System.in);
+        boolean quitMenu = false;
+
         // Menu for command line interface
+        menuMessage();
+
+        while (!quitMenu) {
+            System.out.print("Please enter your command: ");
+            
+            if (!sc.hasNextInt()) {
+                System.out.println("\nInvalid input. Please retry.");
+                 continue;
+            }
+
+            int command = sc.nextInt();
+
+            if (command == 1) {
+                // TODO
+
+            } else if (command == 2) {
+                // TODO
+
+            } else if (command == 3) {
+                // TODO
+                
+            } else {
+                System.out.println("Thank you for using EasyBank");
+                quitMenu = true;
+
+                break;
+            }
+
+
+        }
+    
+        sc.close();
+    }
+
+    public void menuMessage() {
+        System.out.println("==============================");
+        System.out.println("EASYBANK");
+        System.out.println("Choose menu:");
+        System.out.println("1. Add Customer");
+        System.out.println("2. Add Account");
+        System.out.println("3. Add Transaction");
+        // Other features to be implemented later
+
+        System.out.println("99. Exit");
+        System.out.println("==============================");
     }
 
     public Account[] getAccounts() {

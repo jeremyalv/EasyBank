@@ -4,7 +4,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 
 public class Transaction {
-    private String transactionId;
+    private String id;
     private Customer customer;
     private String name;
     private long amount;
@@ -16,7 +16,6 @@ public class Transaction {
 
     }
 
-    // TODO user and transaction ID creation
     public Transaction(Customer customer, String name, long amount, String type) {
         String customerId = customer.getId();
 
@@ -24,15 +23,25 @@ public class Transaction {
         this.name = name;
         this.amount = amount;
         this.date = Calendar.getInstance().getTime();
-        this.type = type;
+
+        // 3 letter transaction type
+        this.type = type; 
 
         // Create transaction ID
-        Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-        this.transactionId = formatter.format(date);
+        this.id = createId(customerId, type, date);
     }
 
-    public String getTransactionId() {
-        return this.transactionId;
+    public String createId(String custId, String type, Date date) {
+        // 7 digit date identifier
+        Format formatter = new SimpleDateFormat("yyMMddHHmmssZ"); 
+        String dt = formatter.format(date);
+        
+        // Returns 26 digit transaction id
+        return custId + type + dt;
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     public Customer getCustomer() {
@@ -59,9 +68,19 @@ public class Transaction {
         return this.isVerified;
     }
 
-    // TODO implementation
+    
     @Override
     public String toString() {
-        return "";
+        return String.format(
+            "Transaction Data:\n" 
+            + "ID: %s\n"
+            + "Name: %s\n"
+            + "Type: %s\n"
+            + "Purchase Date: %s\n",
+            this.id,
+            this.name,
+            this.type,
+            this.date.toString()
+        );
     }
 }
